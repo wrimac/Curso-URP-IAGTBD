@@ -10,15 +10,43 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#0b1e38;--navy2:#122349;--navy3:#1d3465;
-  --gold:#c8942f;--gold2:#e7b56a;--gold3:#f5d899;
-  --cream:#faf7f2;--lgray:#f0ede7;--mgray:#8a8577;--dgray:#2d2b27;--white:#fff;
-  --green:#0a6542;--green2:#11906a;--green3:#e0f4ec;
-  --red:#9b2016;--red2:#d43929;--red3:#fce9e8;
-  --amber:#94600a;--amber2:#d68d18;--amber3:#faeedd;
-  --blue:#1a4fa0;--blue2:#3a6fd4;--blue3:#e8effe;
-  --serif:'DM Serif Display',Georgia,serif;
+  /* VERDES URP */
+  --navy:#006B3F;      /* Verde institucional */
+  --navy2:#008C52;     /* Verde secundario */
+  --navy3:#00A862;     /* Verde claro */
+
+  /* DORADOS URP */
+  --gold:#C9A227;      
+  --gold2:#D8B54A;
+  --gold3:#F4E7B2;
+
+  /* Neutros */
+  --cream:#faf7f2;
+  --lgray:#f0ede7;
+  --mgray:#8a8577;
+  --dgray:#2d2b27;
+  --white:#fff;
+
+  /* Estados */
+  --green:#006B3F;
+  --green2:#00A862;
+  --green3:#E8F5EC;
+
+  --amber:#C28A00;
+  --amber2:#D9A400;
+  --amber3:#FFF4D6;
+
+  --blue:#1D4ED8;
+  --blue2:#2563EB;
+  --blue3:#EAF2FF;
+
+  --red:#B42318;
+  --red2:#D92D20;
+  --red3:#FEECEC;
+
+  /* Tipografías */
   --sans:'DM Sans',sans-serif;
+  --serif:'DM Serif Display',serif;
   --mono:'DM Mono',monospace;
 }
 html{scroll-behavior:smooth}
@@ -55,7 +83,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dgray);line-hei
 /* SECTION */
 .sec-title{font-family:var(--serif);font-size:20px;color:var(--navy);margin-bottom:.3rem;margin-top:1.5rem}
 .sec-title:first-child{margin-top:0}
-.sec-sub{font-size:12.5px;color:var(--mgry);margin-bottom:1rem;line-height:1.55}
+.sec-sub{font-size:12.5px;color:var(--mgrey);margin-bottom:1rem;line-height:1.55}
 .sec-lbl{font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--mgray);margin-bottom:.6rem;display:block;margin-top:1.2rem}
 .sec-lbl:first-child{margin-top:0}
 
@@ -163,7 +191,7 @@ td{padding:.5rem .85rem;vertical-align:middle}
 .tc-dev-item::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:1px}
 
 /* FIXED BAR */
-.fixed-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(11,30,56,.97);backdrop-filter:blur(10px);border-top:1px solid rgba(200,148,47,.2);padding:.6rem 1.5rem;z-index:200}
+.fixed-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(0,107,63,.97);backdrop-filter:blur(10px);border-top:1px solid rgba(200,148,47,.2);padding:.6rem 1.5rem;z-index:200}
 .fb-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem}
 .fb-left{display:flex;align-items:center;gap:.75rem;flex:1;min-width:0}
 .fb-prog{flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:2px;max-width:200px}
@@ -414,13 +442,13 @@ td{padding:.5rem .85rem;vertical-align:middle}
 <script>
 // ── DATA ──────────────────────────────────────────
 var DATA = [
-  {id:"ana",   nombre:"Ana P.",    kpi:94, f360:4.2, ona:0.82, aprend:"Alta",       movil:"Alta",    mgr:3.5, hidden:true,  avatar:"AP", color:"#1d3465"},
+  {id:"ana",   nombre:"Ana P.",    kpi:94, f360:4.2, ona:0.82, aprend:"Alta",       movil:"Alta",    mgr:3.5, hidden:true,  avatar:"AP", color:"#006B3F"},
   {id:"luis",  nombre:"Luis M.",   kpi:72, f360:3.8, ona:0.45, aprend:"Media",      movil:"Media",   mgr:4.8, hidden:false, avatar:"LM", color:"#8a8577"},
-  {id:"rosa",  nombre:"Rosa T.",   kpi:88, f360:4.6, ona:0.79, aprend:"Alta",       movil:"Alta",    mgr:3.2, hidden:true,  avatar:"RT", color:"#1d3465"},
+  {id:"rosa",  nombre:"Rosa T.",   kpi:88, f360:4.6, ona:0.79, aprend:"Alta",       movil:"Alta",    mgr:3.2, hidden:true,  avatar:"RT", color:"#006B3F"},
   {id:"carlos",nombre:"Carlos H.", kpi:61, f360:4.0, ona:0.92, aprend:"Sobresaliente",movil:"Alta",  mgr:3.0, hidden:true,  avatar:"CH", color:"#c8942f"},
   {id:"maria", nombre:"María F.",  kpi:79, f360:3.5, ona:0.22, aprend:"Media",      movil:"Baja",    mgr:4.5, hidden:false, avatar:"MF", color:"#8a8577"},
   {id:"jorge", nombre:"Jorge L.",  kpi:85, f360:4.1, ona:0.48, aprend:"Media",      movil:"Media",   mgr:4.0, hidden:false, avatar:"JL", color:"#8a8577"},
-  {id:"elena", nombre:"Elena V.",  kpi:68, f360:4.7, ona:0.76, aprend:"Alta",       movil:"Media",   mgr:3.1, hidden:true,  avatar:"EV", color:"#1d3465"},
+  {id:"elena", nombre:"Elena V.",  kpi:68, f360:4.7, ona:0.76, aprend:"Alta",       movil:"Media",   mgr:3.1, hidden:true,  avatar:"EV", color:"#006B3F"},
   {id:"pedro", nombre:"Pedro A.",  kpi:91, f360:3.6, ona:0.18, aprend:"Baja",       movil:"Baja",    mgr:4.9, hidden:false, avatar:"PA", color:"#8a8577"},
   {id:"lucia", nombre:"Lucía S.",  kpi:77, f360:3.9, ona:0.38, aprend:"Media",      movil:"Media",   mgr:3.8, hidden:false, avatar:"LS", color:"#8a8577"},
   {id:"mario", nombre:"Mario C.",  kpi:83, f360:4.3, ona:0.55, aprend:"Media",      movil:"Alta",    mgr:4.2, hidden:false, avatar:"MC", color:"#8a8577"},
@@ -500,7 +528,7 @@ function renderBars(){
 // ── 9-BOX ─────────────────────────────────────────
 var B9_CELLS = [
   {des:2,pot:2,name:"Alto Des. · Alto Pot.",     label:"ESTRELLA",        bg:"#0a6542",tc:"#f5d899"},
-  {des:1,pot:2,name:"Medio Des. · Alto Pot.",    label:"POTENCIAL ALTO",  bg:"#1d3465",tc:"#e7b56a"},
+  {des:1,pot:2,name:"Medio Des. · Alto Pot.",    label:"POTENCIAL ALTO",  bg:"#006B3F",tc:"#e7b56a"},
   {des:0,pot:2,name:"Bajo Des. · Alto Pot.",     label:"TALENTO EN RIESGO",bg:"#122349",tc:"#aabbd8"},
   {des:2,pot:1,name:"Alto Des. · Pot. Medio",    label:"SÓLIDO",          bg:"#0a6542",tc:"#d4f0e4"},
   {des:1,pot:1,name:"Medio Des. · Pot. Medio",   label:"NÚCLEO",          bg:"#f5f5f5",tc:"#555"},
