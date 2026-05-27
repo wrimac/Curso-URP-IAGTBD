@@ -16,9 +16,13 @@
   --navy3:#00A862;     /* Verde claro */
 
   /* DORADOS URP */
-  --gold:#C9A227;      
-  --gold2:#D8B54A;
-  --gold3:#F4E7B2;
+  /*--gold:#C9A227; */      
+  /*--gold2:#D8B54A;*/
+  /*--gold3:#F4E7B2;*/
+  --gold:#FF8A00;
+  --gold2:#FFA726;
+  --gold3:#FFE0B2;
+
 
   /* Neutros */
   --cream:#faf7f2;
@@ -26,6 +30,7 @@
   --mgray:#8a8577;
   --dgray:#2d2b27;
   --white:#fff;
+  --black:#111111;
 
   /* Estados */
   --green:#006B3F;
@@ -45,9 +50,9 @@
   --red3:#FEECEC;
 
   /* Tipografías */
-  --sans:'DM Sans',sans-serif;
-  --serif:'DM Serif Display',serif;
-  --mono:'DM Mono',monospace;
+  --sans: Arial, Helvetica, sans-serif;
+  --serif: Arial, Helvetica, sans-serif;
+  --mono: Consolas, monospace;
 }
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--cream);color:var(--dgray);line-height:1.65;min-height:100vh}
@@ -138,7 +143,7 @@ td{padding:.5rem .85rem;vertical-align:middle}
 
 /* 9-BOX BUILDER */
 .b9-outer{display:grid;grid-template-columns:28px 1fr;gap:.4rem;margin:1rem 0}
-.b9-y-axis{display:flex;flex-direction:column;justify-content:space-between;padding:.3rem 0;font-size:9px;color:var(--mgray);text-align:right}
+.b9-y-axis{display:flex;flex-direction:column;justify-content:space-between;padding:.3rem 0;font-size:9px;color:var(--black);text-align:right}
 .b9-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
 .b9-cell{border-radius:8px;padding:.65rem .7rem;min-height:90px;cursor:pointer;transition:all .15s;border:2px solid transparent;position:relative}
 .b9-cell:hover{filter:brightness(.97)}
@@ -149,8 +154,8 @@ td{padding:.5rem .85rem;vertical-align:middle}
 .chip{font-size:9.5px;padding:2px 6px;border-radius:6px;cursor:pointer;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.25);font-family:var(--sans);transition:all .12s}
 .chip:hover{background:rgba(255,255,255,.4)}
 .b9-x-labels{padding-left:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:.25rem}
-.b9-x-lbl{font-size:9px;color:var(--mgray);text-align:center}
-.b9-x-axis{font-size:9.5px;color:var(--mgray);text-align:center;margin-top:.15rem;padding-left:32px}
+.b9-x-lbl{font-size:9px;color:var(--black);text-align:center}
+.b9-x-axis{font-size:9.5px;color:var(--black);text-align:center;margin-top:.15rem;padding-left:32px}
 
 /* COLABORADORES POOL */
 .pool{display:flex;flex-wrap:wrap;gap:.45rem;padding:.75rem;background:var(--lgray);border-radius:10px;min-height:44px;margin-bottom:.75rem;transition:background .15s}
@@ -217,7 +222,7 @@ td{padding:.5rem .85rem;vertical-align:middle}
   <div class="hero-inner">
     <p class="hero-label">Semana 3 · Laboratorio Práctico · Área Comercial</p>
     <h1 class="hero-title">Identifica los 3<br><em>talentos ocultos</em></h1>
-    <p class="hero-sub">Dataset de 12 colaboradores. Usa todas las variables disponibles — no solo el rating del manager. Los datos revelan lo que la intuición no ve.</p>
+    <p class="hero-sub">Dataset de 12 colaboradores. Usa todas las variables disponibles, no solo el "rating del manager". Los datos revelan lo que la intuición no ve.</p>
     <div class="hero-pills">
       <span class="pill">15 min individual</span>
       <span class="pill">Grupos de 4</span>
@@ -247,7 +252,7 @@ td{padding:.5rem .85rem;vertical-align:middle}
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:1rem">
     <div class="alert alert-amber"><strong>Recuerda:</strong> Scullen et al. (2000) — el 53% de la varianza en los ratings refleja al evaluador, no al evaluado.</div>
-    <div class="alert alert-blue"><strong>ONA:</strong> Cross et al. (2002) — el 20% de personas manejan el 80% del flujo de conocimiento. La centralidad ONA es el predictor más contraintuitivo.</div>
+    <div class="alert alert-blue"><strong>ONA (Organizational Network Analysis):</strong> Cross et al. (2002) — el 20% de personas manejan el 80% del flujo de conocimiento. La centralidad ONA es el predictor más contraintuitivo.</div>
   </div>
 
   <p class="sec-lbl">Dataset completo — 12 colaboradores · Área Comercial</p>
@@ -293,7 +298,7 @@ td{padding:.5rem .85rem;vertical-align:middle}
 
   <p class="sec-lbl">Instrucción</p>
   <div class="card-accent" style="margin-bottom:1rem">
-    <p style="font-size:13.5px;color:var(--dgray);line-height:1.6"><strong>Arrastra cada colaborador al cuadrante del 9-Box donde lo ubicarías.</strong> Usa todas las variables del dataset — no solo el rating del manager. Cuando termines de ubicar a los 12, avanza a la siguiente fase.</p>
+    <p style="font-size:13.5px;color:var(--dgray);line-height:1.6"><strong>Arrastra cada colaborador al cuadrante del 9-Box donde lo ubicarías.</strong> Usa todas las variables del dataset, no solo el rating del manager. Cuando termines de ubicar a los 12, avanza a la siguiente fase.</p>
   </div>
 
   <div class="alert alert-blue" style="margin-bottom:1rem">
