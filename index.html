@@ -63,6 +63,24 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dgray);line-hei
 .hero-inner{max-width:980px;margin:0 auto;position:relative;z-index:1}
 .hero-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold2);margin-bottom:.5rem;font-weight:300}
 .hero-title{font-family:var(--serif);font-size:clamp(22px,4vw,34px);color:var(--white);line-height:1.15;margin-bottom:.4rem}
+
+/* LOGO URP */
+.hero-title-wrap{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    width:100%;
+    gap:20px;
+}
+
+.urp-logo{
+    width:110px;
+    height:auto;
+    object-fit:contain;
+    flex-shrink:0;
+}
+/* LOGO URP */
+
 .hero-title em{color:var(--gold);font-style:italic}
 .hero-sub{font-size:13px;color:rgba(255,255,255,.5);max-width:560px;line-height:1.65;font-weight:300;margin-bottom:1.1rem}
 .hero-pills{display:flex;gap:6px;flex-wrap:wrap}
@@ -222,6 +240,11 @@ td{padding:.5rem .85rem;vertical-align:middle}
   <div class="hero-inner">
     <p class="hero-label">Semana 3 · Laboratorio Práctico · Área Comercial</p>
     <h1 class="hero-title">Identifica los 3<br><em>talentos ocultos</em></h1>
+
+    <img src="logo-urp.png" class="urp-logo" alt="URP">
+
+
+
     <p class="hero-sub">Dataset de 12 colaboradores. Usa todas las variables disponibles, no solo el "rating del manager". Los datos revelan lo que la intuición no ve.</p>
     <div class="hero-pills">
       <span class="pill">15 min individual</span>
