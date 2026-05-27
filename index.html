@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laboratorio: Identifica los 3 Talentos Ocultos · Semana 3 · URP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0b1e38;--navy2:#122349;--navy3:#1d3465;
+  --gold:#c8942f;--gold2:#e7b56a;--gold3:#f5d899;
+  --cream:#faf7f2;--lgray:#f0ede7;--mgray:#8a8577;--dgray:#2d2b27;--white:#fff;
+  --green:#0a6542;--green2:#11906a;--green3:#e0f4ec;
+  --red:#9b2016;--red2:#d43929;--red3:#fce9e8;
+  --amber:#94600a;--amber2:#d68d18;--amber3:#faeedd;
+  --blue:#1a4fa0;--blue2:#3a6fd4;--blue3:#e8effe;
+  --serif:'DM Serif Display',Georgia,serif;
+  --sans:'DM Sans',sans-serif;
+  --mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--dgray);line-height:1.65;min-height:100vh}
+
+/* HERO */
+.hero{background:var(--navy);padding:2.2rem 1.5rem 1.8rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;border:1.5px solid rgba(200,148,47,.1);border-radius:50%}
+.hero-inner{max-width:980px;margin:0 auto;position:relative;z-index:1}
+.hero-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold2);margin-bottom:.5rem;font-weight:300}
+.hero-title{font-family:var(--serif);font-size:clamp(22px,4vw,34px);color:var(--white);line-height:1.15;margin-bottom:.4rem}
+.hero-title em{color:var(--gold);font-style:italic}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.5);max-width:560px;line-height:1.65;font-weight:300;margin-bottom:1.1rem}
+.hero-pills{display:flex;gap:6px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.07);border:1px solid rgba(200,148,47,.22);color:rgba(255,255,255,.72);font-size:11px;padding:3px 11px;border-radius:12px}
+
+/* FASE STEPPER */
+.phases{background:var(--navy2);border-bottom:1px solid rgba(200,148,47,.15);padding:.6rem 1.5rem}
+.phases-inner{max-width:980px;margin:0 auto;display:flex;gap:0;align-items:stretch}
+.phase-btn{flex:1;background:none;border:none;padding:.55rem .5rem;cursor:pointer;font-family:var(--sans);display:flex;align-items:center;gap:.45rem;border-bottom:2px solid transparent;color:rgba(255,255,255,.45);font-size:11.5px;transition:all .15s;white-space:nowrap;justify-content:center}
+.phase-btn:hover{color:rgba(255,255,255,.75)}
+.phase-btn.active{border-bottom-color:var(--gold);color:var(--white);font-weight:600}
+.phase-btn.done{color:var(--gold2)}
+.ph-n{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:700;flex-shrink:0}
+.phase-btn.active .ph-n{background:var(--gold);color:var(--navy)}
+.phase-btn.done .ph-n{background:var(--green2);color:#fff}
+
+/* MAIN */
+.main{max-width:980px;margin:0 auto;padding:1.5rem 1.5rem 5rem}
+.phase-panel{display:none;animation:fadeUp .25s ease}
+.phase-panel.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* SECTION */
+.sec-title{font-family:var(--serif);font-size:20px;color:var(--navy);margin-bottom:.3rem;margin-top:1.5rem}
+.sec-title:first-child{margin-top:0}
+.sec-sub{font-size:12.5px;color:var(--mgry);margin-bottom:1rem;line-height:1.55}
+.sec-lbl{font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--mgray);margin-bottom:.6rem;display:block;margin-top:1.2rem}
+.sec-lbl:first-child{margin-top:0}
+
+/* CARDS */
+.card{background:var(--white);border:1px solid #e2dfd8;border-radius:12px;padding:1.1rem 1.2rem;margin-bottom:.85rem}
+.card-navy{background:var(--navy);border-radius:12px;padding:1.1rem 1.2rem;margin-bottom:.85rem}
+.card-accent{background:var(--lgray);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:.9rem 1.1rem;margin-bottom:.85rem}
+.alert{border-radius:10px;padding:.8rem 1rem;margin-bottom:.8rem;font-size:12.5px;line-height:1.55}
+.alert-amber{background:var(--amber3);border-left:3px solid var(--amber2)}
+.alert-green{background:var(--green3);border-left:3px solid var(--green2)}
+.alert-blue{background:var(--blue3);border-left:3px solid var(--blue2)}
+.alert-red{background:var(--red3);border-left:3px solid var(--red2)}
+
+/* DATASET TABLE */
+.tbl-wrap{overflow-x:auto;margin-bottom:1.2rem}
+table{width:100%;border-collapse:collapse;background:var(--white);border-radius:12px;overflow:hidden;border:1px solid #e2dfd8;font-size:13px}
+thead tr{background:var(--navy)}
+thead th{padding:.6rem .85rem;font-size:9.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--gold2);text-align:left;white-space:nowrap}
+tbody tr{border-bottom:1px solid #f0ede7;transition:background .12s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#fafaf8}
+tbody tr.hl{background:var(--blue3)}
+tbody tr.hl td:first-child{font-weight:600;color:var(--navy)}
+td{padding:.5rem .85rem;vertical-align:middle}
+.td-center{text-align:center}
+.td-mono{font-family:var(--mono);font-size:11.5px}
+.badge{display:inline-block;font-size:9.5px;font-weight:600;padding:2px 8px;border-radius:8px;white-space:nowrap}
+.b-high{background:var(--red3);color:var(--red)}
+.b-med{background:var(--amber3);color:var(--amber)}
+.b-low{background:var(--green3);color:var(--green)}
+.b-ona-high{background:#e8effe;color:var(--blue)}
+.b-ona-med{background:var(--lgray);color:var(--mgray)}
+.b-ona-low{background:#f5f5f5;color:#aaa}
+.signal{font-size:14px}
+
+/* VARIABLE SELECTOR */
+.var-selector{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.var-btn{background:var(--lgray);border:1.5px solid transparent;border-radius:8px;padding:.38rem .85rem;font-size:12.5px;color:var(--dgray);cursor:pointer;transition:all .15s;font-family:var(--sans)}
+.var-btn:hover{background:#e8e5de}
+.var-btn.sel{background:var(--navy);border-color:var(--gold);color:var(--white)}
+
+/* SCATTER / BAR VIZ */
+.viz-wrap{background:var(--white);border:1px solid #e2dfd8;border-radius:12px;padding:1.1rem 1.2rem;margin-bottom:1rem}
+.viz-title{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--mgray);margin-bottom:.85rem}
+.bar-grid{display:flex;flex-direction:column;gap:.6rem}
+.bar-row{display:flex;align-items:center;gap:.75rem}
+.bar-name{font-size:12.5px;min-width:80px;color:var(--dgray);flex-shrink:0}
+.bar-track{flex:1;height:10px;background:var(--lgray);border-radius:5px;position:relative;overflow:visible}
+.bar-fill{height:100%;border-radius:5px;transition:width .5s ease;position:relative}
+.bar-label{font-family:var(--mono);font-size:11px;min-width:42px;text-align:right;flex-shrink:0}
+.bar-row.hl .bar-name{font-weight:600;color:var(--navy)}
+
+/* 9-BOX BUILDER */
+.b9-outer{display:grid;grid-template-columns:28px 1fr;gap:.4rem;margin:1rem 0}
+.b9-y-axis{display:flex;flex-direction:column;justify-content:space-between;padding:.3rem 0;font-size:9px;color:var(--mgray);text-align:right}
+.b9-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.b9-cell{border-radius:8px;padding:.65rem .7rem;min-height:90px;cursor:pointer;transition:all .15s;border:2px solid transparent;position:relative}
+.b9-cell:hover{filter:brightness(.97)}
+.b9-cell.drop-target{border-color:var(--gold)!important;box-shadow:0 0 0 3px rgba(200,148,47,.2)}
+.b9-rank{font-size:8.5px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;opacity:.65;margin-bottom:3px}
+.b9-label{font-size:11px;font-weight:600;line-height:1.2;margin-bottom:.35rem}
+.b9-chips{display:flex;flex-wrap:wrap;gap:3px;min-height:20px}
+.chip{font-size:9.5px;padding:2px 6px;border-radius:6px;cursor:pointer;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.25);font-family:var(--sans);transition:all .12s}
+.chip:hover{background:rgba(255,255,255,.4)}
+.b9-x-labels{padding-left:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:.25rem}
+.b9-x-lbl{font-size:9px;color:var(--mgray);text-align:center}
+.b9-x-axis{font-size:9.5px;color:var(--mgray);text-align:center;margin-top:.15rem;padding-left:32px}
+
+/* COLABORADORES POOL */
+.pool{display:flex;flex-wrap:wrap;gap:.45rem;padding:.75rem;background:var(--lgray);border-radius:10px;min-height:44px;margin-bottom:.75rem;transition:background .15s}
+.pool.drag-over{background:#e8e5de}
+.pool-lbl{font-size:10px;color:var(--mgray);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.5rem;display:block}
+.person-chip{display:flex;align-items:center;gap:.3rem;background:var(--white);border:1.5px solid #d8d5ce;border-radius:7px;padding:.3rem .65rem;font-size:12px;font-weight:500;color:var(--dgray);cursor:grab;user-select:none;transition:all .15s;white-space:nowrap}
+.person-chip:hover{border-color:var(--gold);background:var(--lgray)}
+.person-chip.dragging{opacity:.45;cursor:grabbing}
+.person-chip.hidden{display:none}
+.pc-avatar{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0}
+
+/* PREGUNTAS */
+.q-item{background:var(--white);border:1px solid #e2dfd8;border-radius:10px;padding:.85rem 1rem;margin-bottom:.65rem}
+.q-num{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-bottom:.35rem}
+.q-text{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:.55rem;line-height:1.4}
+.q-ta{width:100%;font-family:var(--sans);font-size:12.5px;border:1px solid #d8d5ce;border-radius:7px;padding:.5rem .7rem;background:var(--lgray);color:var(--dgray);resize:vertical;min-height:62px;line-height:1.5;transition:border-color .15s,background .15s}
+.q-ta:focus{outline:none;border-color:var(--gold);background:var(--white)}
+
+/* REVELATION */
+.reveal-section{display:none;animation:fadeUp .4s ease}
+.reveal-section.show{display:block}
+.talent-card{background:var(--white);border:1px solid #e2dfd8;border-radius:14px;overflow:hidden;margin-bottom:1rem}
+.tc-head{padding:1rem 1.2rem;display:flex;align-items:center;gap:.85rem}
+.tc-avatar{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:22px;font-weight:700;flex-shrink:0}
+.tc-name{font-family:var(--serif);font-size:18px;color:var(--navy);margin-bottom:.2rem}
+.tc-tag{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gold);background:rgba(200,148,47,.12);padding:2px 8px;border-radius:6px}
+.tc-body{padding:0 1.2rem 1.1rem}
+.tc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.65rem;margin-bottom:.85rem}
+.tc-stat{background:var(--lgray);border-radius:8px;padding:.65rem .85rem}
+.tc-stat-label{font-size:10px;color:var(--mgray);letter-spacing:.5px;text-transform:uppercase;margin-bottom:.2rem}
+.tc-stat-val{font-size:15px;font-weight:600;color:var(--navy);font-family:var(--mono)}
+.tc-why{background:var(--navy);border-radius:10px;padding:.85rem 1rem;margin-bottom:.65rem}
+.tc-why-lbl{font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold2);margin-bottom:.4rem}
+.tc-why-txt{font-size:12.5px;color:rgba(255,255,255,.85);line-height:1.6}
+.tc-dev{border:1px solid #e2dfd8;border-radius:8px;padding:.75rem .85rem}
+.tc-dev-lbl{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--green2);margin-bottom:.35rem;font-weight:600}
+.tc-dev-item{font-size:12px;color:var(--dgray);display:flex;align-items:flex-start;gap:.4rem;margin-bottom:.3rem;line-height:1.4}
+.tc-dev-item::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:1px}
+
+/* FIXED BAR */
+.fixed-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(11,30,56,.97);backdrop-filter:blur(10px);border-top:1px solid rgba(200,148,47,.2);padding:.6rem 1.5rem;z-index:200}
+.fb-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.fb-left{display:flex;align-items:center;gap:.75rem;flex:1;min-width:0}
+.fb-prog{flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:2px;max-width:200px}
+.fb-prog-fill{height:100%;border-radius:2px;background:var(--gold);transition:width .4s ease}
+.fb-pct{font-size:11px;color:var(--gold2);font-family:var(--mono);white-space:nowrap}
+.fb-right{display:flex;gap:.5rem;flex-shrink:0}
+.fb-btn{font-family:var(--sans);font-size:12px;padding:.4rem .95rem;border-radius:7px;cursor:pointer;border:none;transition:all .15s}
+.fb-btn.sec{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7)}
+.fb-btn.sec:hover{background:rgba(255,255,255,.14)}
+.fb-btn.prim{background:var(--gold);color:var(--navy);font-weight:600}
+.fb-btn.prim:hover{background:var(--gold2)}
+.fb-btn.prim:disabled{opacity:.4;cursor:not-allowed}
+
+/* SCORE BADGE */
+.score-badge{display:inline-flex;align-items:center;gap:.3rem;font-size:10px;font-weight:600;padding:2px 8px;border-radius:8px}
+.sb-hidden{background:#e8effe;color:var(--blue)}
+.sb-seen{background:var(--green3);color:var(--green)}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <p class="hero-label">Semana 3 · Laboratorio Práctico · Área Comercial</p>
+    <h1 class="hero-title">Identifica los 3<br><em>talentos ocultos</em></h1>
+    <p class="hero-sub">Dataset de 12 colaboradores. Usa todas las variables disponibles — no solo el rating del manager. Los datos revelan lo que la intuición no ve.</p>
+    <div class="hero-pills">
+      <span class="pill">15 min individual</span>
+      <span class="pill">Grupos de 4</span>
+      <span class="pill">Plenario 5 min</span>
+      <span class="pill">Caso central: Carlos H.</span>
+    </div>
+  </div>
+</div>
+
+<div class="phases">
+  <div class="phases-inner">
+    <button class="phase-btn active" onclick="goPhase(0)" id="ph0"><span class="ph-n">1</span>Explorar datos</button>
+    <button class="phase-btn" onclick="goPhase(1)" id="ph1"><span class="ph-n">2</span>Construir 9-Box</button>
+    <button class="phase-btn" onclick="goPhase(2)" id="ph2"><span class="ph-n">3</span>Responder preguntas</button>
+    <button class="phase-btn" onclick="goPhase(3)" id="ph3"><span class="ph-n">4</span>Ver solución</button>
+  </div>
+</div>
+
+<main class="main">
+
+<!-- ══ FASE 1: EXPLORAR DATOS ══ -->
+<div class="phase-panel active" id="panel0">
+
+  <div class="card-accent" style="margin-bottom:1rem">
+    <p style="font-size:13.5px;color:var(--dgray);line-height:1.6"><strong>Consigna:</strong> Analiza los datos de los 12 colaboradores del Área Comercial. El rating del manager no es el único indicador — ni necesariamente el más confiable. Identifica qué variables revelan potencial que el sistema formal no reconoce.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:1rem">
+    <div class="alert alert-amber"><strong>Recuerda:</strong> Scullen et al. (2000) — el 53% de la varianza en los ratings refleja al evaluador, no al evaluado.</div>
+    <div class="alert alert-blue"><strong>ONA:</strong> Cross et al. (2002) — el 20% de personas manejan el 80% del flujo de conocimiento. La centralidad ONA es el predictor más contraintuitivo.</div>
+  </div>
+
+  <p class="sec-lbl">Dataset completo — 12 colaboradores · Área Comercial</p>
+  <div class="tbl-wrap">
+    <table id="main-table">
+      <thead>
+        <tr>
+          <th>Colaborador</th>
+          <th>KPI ventas</th>
+          <th>Feedback 360°</th>
+          <th>Centralidad ONA</th>
+          <th>Vel. aprendizaje</th>
+          <th>Movilidad</th>
+          <th>Rating manager</th>
+          <th>Señal</th>
+        </tr>
+      </thead>
+      <tbody id="main-tbody"></tbody>
+    </table>
+  </div>
+
+  <p class="sec-lbl">Visualizar variable por variable</p>
+  <div class="var-selector" id="var-selector">
+    <button class="var-btn sel" onclick="selectVar('kpi',this)">KPI Ventas</button>
+    <button class="var-btn" onclick="selectVar('f360',this)">Feedback 360°</button>
+    <button class="var-btn" onclick="selectVar('ona',this)">Centralidad ONA</button>
+    <button class="var-btn" onclick="selectVar('aprend',this)">Vel. aprendizaje</button>
+    <button class="var-btn" onclick="selectVar('movil',this)">Movilidad</button>
+    <button class="var-btn" onclick="selectVar('mgr',this)">Rating manager</button>
+  </div>
+  <div class="viz-wrap">
+    <p class="viz-title" id="viz-title">KPI Ventas — % de objetivo</p>
+    <div class="bar-grid" id="bar-grid"></div>
+  </div>
+
+  <div class="alert alert-amber" style="margin-top:.5rem">
+    <strong>Pregunta de exploración:</strong> ¿En qué variable el ranking cambia más drásticamente respecto al rating del manager? Esa discrepancia es donde vive el talento oculto.
+  </div>
+</div>
+
+<!-- ══ FASE 2: 9-BOX BUILDER ══ -->
+<div class="phase-panel" id="panel1">
+
+  <p class="sec-lbl">Instrucción</p>
+  <div class="card-accent" style="margin-bottom:1rem">
+    <p style="font-size:13.5px;color:var(--dgray);line-height:1.6"><strong>Arrastra cada colaborador al cuadrante del 9-Box donde lo ubicarías.</strong> Usa todas las variables del dataset — no solo el rating del manager. Cuando termines de ubicar a los 12, avanza a la siguiente fase.</p>
+  </div>
+
+  <div class="alert alert-blue" style="margin-bottom:1rem">
+    <strong>Criterio de potencial:</strong> centralidad ONA + velocidad de aprendizaje + movilidad histórica. <strong>Criterio de desempeño:</strong> KPI ventas + feedback 360° + (opcionalmente) rating manager.
+  </div>
+
+  <span class="pool-lbl">Pool de colaboradores — arrastra a la grilla</span>
+  <div class="pool" id="pool" ondragover="onDragOver(event,this)" ondrop="onDrop(event,'pool',null)"></div>
+
+  <div class="b9-outer">
+    <div class="b9-y-axis">
+      <span>Alto</span>
+      <span>Medio</span>
+      <span>Bajo</span>
+    </div>
+    <div>
+      <div class="b9-grid" id="b9grid"></div>
+      <div class="b9-x-labels">
+        <div class="b9-x-lbl">Bajo</div>
+        <div class="b9-x-lbl">Medio</div>
+        <div class="b9-x-lbl">Alto</div>
+      </div>
+      <p class="b9-x-axis">← DESEMPEÑO ACTUAL →</p>
+    </div>
+  </div>
+
+  <div class="alert alert-amber">
+    <strong>¿Carlos H. dónde va?</strong> KPI 61%, rating manager 3.2/5 — pero centralidad ONA 0.92 (la más alta del área) y velocidad de aprendizaje sobresaliente. El cuadrante no es obvio. ¿Dónde lo pones tú?
+  </div>
+</div>
+
+<!-- ══ FASE 3: PREGUNTAS ══ -->
+<div class="phase-panel" id="panel2">
+
+  <div class="card-accent" style="margin-bottom:1.1rem">
+    <p style="font-size:13.5px;color:var(--dgray);line-height:1.6"><strong>Antes de ver la solución:</strong> responde estas preguntas con tu grupo. Las respuestas revelan más sobre tu comprensión que la solución final.</p>
+  </div>
+
+  <div class="q-item">
+    <p class="q-num">Pregunta 1 de 5</p>
+    <p class="q-text">¿Cuáles 3 personas identificas como "talento oculto"? ¿Qué variable fue decisiva para identificarlos?</p>
+    <textarea class="q-ta" placeholder="Escribe los 3 nombres y la variable clave que usaste para cada uno..."></textarea>
+  </div>
+  <div class="q-item">
+    <p class="q-num">Pregunta 2 de 5</p>
+    <p class="q-text">¿Dónde hay mayor divergencia entre el rating del manager y las otras variables? ¿Qué explicación propones?</p>
+    <textarea class="q-ta" placeholder="Identifica el colaborador con mayor discrepancia y propón una hipótesis..."></textarea>
+  </div>
+  <div class="q-item">
+    <p class="q-num">Pregunta 3 de 5</p>
+    <p class="q-text">¿Qué propuesta de desarrollo harías para Carlos H.? Justifica tu respuesta con los datos disponibles.</p>
+    <textarea class="q-ta" placeholder="Diseña una ruta de desarrollo de 6-12 meses para Carlos H. con al menos 2 acciones concretas..."></textarea>
+  </div>
+  <div class="q-item">
+    <p class="q-num">Pregunta 4 de 5</p>
+    <p class="q-text">¿Cómo cambiaría el mapa 9-Box si eliminaras el rating del manager como variable? ¿Cuántos cambiarían de cuadrante?</p>
+    <textarea class="q-ta" placeholder="Identifica los colaboradores que cambiarían de cuadrante y por qué..."></textarea>
+  </div>
+  <div class="q-item">
+    <p class="q-num">Pregunta 5 de 5</p>
+    <p class="q-text">¿Qué riesgo de sesgo identificas en el dataset? ¿Qué variable podría estar reproduciendo sesgos del sistema que queremos superar?</p>
+    <textarea class="q-ta" placeholder="Identifica al menos 1 variable con riesgo de sesgo y explica el mecanismo..."></textarea>
+  </div>
+
+  <div class="alert alert-amber" style="margin-top:.5rem">
+    Cuando tu grupo haya respondido las 5 preguntas, avanza a la Fase 4 para ver la solución y comparar.
+  </div>
+</div>
+
+<!-- ══ FASE 4: SOLUCIÓN ══ -->
+<div class="phase-panel" id="panel3">
+
+  <div class="card" style="background:var(--navy);border:none;margin-bottom:1.2rem">
+    <p style="font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--gold2);margin-bottom:.45rem">Solución del laboratorio</p>
+    <p style="font-family:var(--serif);font-size:19px;color:var(--white);margin-bottom:.5rem">Los 3 talentos ocultos son: <span style="color:var(--gold)">Carlos H., Elena V. y Rosa T.</span></p>
+    <p style="font-size:12.5px;color:rgba(255,255,255,.65);line-height:1.6">Los tres tienen señales claras de alto potencial en las variables objetivas — pero sus ratings de manager los invisibilizan. Esta es exactamente la brecha que la analítica de datos viene a corregir.</p>
+  </div>
+
+  <div id="talent-cards"></div>
+
+  <p style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--mgray);margin-bottom:.75rem;margin-top:1.3rem">El caso más importante: Carlos H.</p>
+  <div class="card-navy" style="border:1px solid rgba(200,148,47,.25)">
+    <p style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold2);margin-bottom:.6rem">Por qué Carlos H. es el caso pedagógico central</p>
+    <p style="font-size:13px;color:rgba(255,255,255,.85);line-height:1.7;margin-bottom:.75rem">Carlos H. tiene el KPI más bajo del área (61%) y el rating de manager más bajo (3.2/5). En un sistema tradicional, sería el primero en salir. Pero tiene la <strong style="color:var(--gold)">centralidad ONA más alta de todo el equipo (0.92)</strong> — lo que significa que sus colegas lo buscan constantemente para resolver problemas difíciles. Y su velocidad de aprendizaje es sobresaliente.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:.85rem">
+      <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:.75rem;text-align:center">
+        <p style="font-family:var(--mono);font-size:24px;color:var(--red2);font-weight:500">61%</p>
+        <p style="font-size:10px;color:rgba(255,255,255,.5);margin-top:.2rem">KPI ventas</p>
+      </div>
+      <div style="background:rgba(200,148,47,.15);border-radius:8px;padding:.75rem;text-align:center;border:1px solid rgba(200,148,47,.3)">
+        <p style="font-family:var(--mono);font-size:24px;color:var(--gold);font-weight:500">0.92</p>
+        <p style="font-size:10px;color:rgba(255,255,255,.5);margin-top:.2rem">Centralidad ONA</p>
+      </div>
+      <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:.75rem;text-align:center">
+        <p style="font-family:var(--mono);font-size:24px;color:var(--red2);font-weight:500">3.2</p>
+        <p style="font-size:10px;color:rgba(255,255,255,.5);margin-top:.2rem">Rating manager</p>
+      </div>
+    </div>
+    <p style="font-size:11px;font-weight:600;color:var(--gold2);margin-bottom:.35rem">La hipótesis más probable:</p>
+    <p style="font-size:12.5px;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:.75rem">Carlos H. está siendo usado como "solucionador de problemas" interno por sus colegas, lo cual consume el tiempo que debería dedicar a cerrar ventas propias. Su bajo KPI no refleja falta de capacidad — refleja una asignación incorrecta de su talento. El manager lo evalúa por el indicador equivocado.</p>
+    <div style="background:rgba(17,144,106,.15);border:1px solid rgba(17,144,106,.3);border-radius:8px;padding:.75rem">
+      <p style="font-size:10px;font-weight:600;color:var(--green2);letter-spacing:1px;text-transform:uppercase;margin-bottom:.4rem">Propuesta de desarrollo</p>
+      <p style="font-size:12px;color:rgba(255,255,255,.8);line-height:1.55">Reasignar a Carlos H. a un rol de <strong style="color:var(--gold2)">Líder Técnico de Área</strong> o <strong style="color:var(--gold2)">Mentor de Equipo</strong> donde su alta centralidad ONA sea una ventaja, no un costo. Medir su impacto por la mejora en el desempeño del equipo, no por sus ventas individuales. Objetivo 12 meses: preparar para rol de Supervisor de Equipo Comercial.</p>
+    </div>
+  </div>
+
+  <p style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--mgray);margin-bottom:.75rem;margin-top:1.3rem">El riesgo de sesgo en el dataset</p>
+  <div class="card">
+    <p style="font-size:13.5px;font-weight:600;color:var(--navy);margin-bottom:.65rem">¿Qué variable debería preocuparnos más éticamente?</p>
+    <div style="display:flex;flex-direction:column;gap:.65rem">
+      <div style="display:flex;gap:.75rem;align-items:flex-start">
+        <span style="flex-shrink:0;background:var(--red3);color:var(--red2);font-size:10px;font-weight:700;padding:.25rem .6rem;border-radius:5px;margin-top:2px">Alto riesgo</span>
+        <div><p style="font-size:12.5px;font-weight:600;color:var(--navy);margin-bottom:.2rem">Rating del manager</p><p style="font-size:12px;color:var(--mgray);line-height:1.5">Scullen et al. (2000) documenta que el 53% de su varianza refleja el sesgo del evaluador. Si este dato tiene más peso que el ONA o el 360° en el modelo, el sistema hereda y amplifica el sesgo del manager.</p></div>
+      </div>
+      <div style="display:flex;gap:.75rem;align-items:flex-start">
+        <span style="flex-shrink:0;background:var(--amber3);color:var(--amber);font-size:10px;font-weight:700;padding:.25rem .6rem;border-radius:5px;margin-top:2px">Riesgo medio</span>
+        <div><p style="font-size:12.5px;font-weight:600;color:var(--navy);margin-bottom:.2rem">Movilidad histórica</p><p style="font-size:12px;color:var(--mgray);line-height:1.5">Puede penalizar a colaboradores con menos experiencia laboral previa (jóvenes, personas que reingresaron al mercado) o quienes tuvieron que cuidar familia. La movilidad no es neutral en términos de género y clase social.</p></div>
+      </div>
+      <div style="display:flex;gap:.75rem;align-items:flex-start">
+        <span style="flex-shrink:0;background:var(--green3);color:var(--green);font-size:10px;font-weight:700;padding:.25rem .6rem;border-radius:5px;margin-top:2px">Bajo riesgo</span>
+        <div><p style="font-size:12.5px;font-weight:600;color:var(--navy);margin-bottom:.2rem">Centralidad ONA + KPI ventas</p><p style="font-size:12px;color:var(--mgray);line-height:1.5">Son los indicadores más objetivos del dataset. La centralidad ONA es difícil de manipular porque emerge de las elecciones colectivas, no de la percepción de un evaluador individual.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-green" style="margin-top:.5rem">
+    <strong>Para el plenario:</strong> Pregunta de cierre — "¿Qué habría pasado con Carlos H. en tu empresa si no tuviéramos los datos de ONA? ¿Y con Elena V. y Rosa T.?"
+  </div>
+</div>
+
+</main>
+
+<div class="fixed-bar">
+  <div class="fb-inner">
+    <div class="fb-left">
+      <div class="fb-prog"><div class="fb-prog-fill" id="fb-fill" style="width:25%"></div></div>
+      <span class="fb-pct" id="fb-pct">Fase 1 de 4</span>
+    </div>
+    <div class="fb-right">
+      <button class="fb-btn sec" onclick="prevPhase()">← Anterior</button>
+      <button class="fb-btn prim" onclick="nextPhase()" id="fb-next">Siguiente →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────
+var DATA = [
+  {id:"ana",   nombre:"Ana P.",    kpi:94, f360:4.2, ona:0.82, aprend:"Alta",       movil:"Alta",    mgr:3.5, hidden:true,  avatar:"AP", color:"#1d3465"},
+  {id:"luis",  nombre:"Luis M.",   kpi:72, f360:3.8, ona:0.45, aprend:"Media",      movil:"Media",   mgr:4.8, hidden:false, avatar:"LM", color:"#8a8577"},
+  {id:"rosa",  nombre:"Rosa T.",   kpi:88, f360:4.6, ona:0.79, aprend:"Alta",       movil:"Alta",    mgr:3.2, hidden:true,  avatar:"RT", color:"#1d3465"},
+  {id:"carlos",nombre:"Carlos H.", kpi:61, f360:4.0, ona:0.92, aprend:"Sobresaliente",movil:"Alta",  mgr:3.0, hidden:true,  avatar:"CH", color:"#c8942f"},
+  {id:"maria", nombre:"María F.",  kpi:79, f360:3.5, ona:0.22, aprend:"Media",      movil:"Baja",    mgr:4.5, hidden:false, avatar:"MF", color:"#8a8577"},
+  {id:"jorge", nombre:"Jorge L.",  kpi:85, f360:4.1, ona:0.48, aprend:"Media",      movil:"Media",   mgr:4.0, hidden:false, avatar:"JL", color:"#8a8577"},
+  {id:"elena", nombre:"Elena V.",  kpi:68, f360:4.7, ona:0.76, aprend:"Alta",       movil:"Media",   mgr:3.1, hidden:true,  avatar:"EV", color:"#1d3465"},
+  {id:"pedro", nombre:"Pedro A.",  kpi:91, f360:3.6, ona:0.18, aprend:"Baja",       movil:"Baja",    mgr:4.9, hidden:false, avatar:"PA", color:"#8a8577"},
+  {id:"lucia", nombre:"Lucía S.",  kpi:77, f360:3.9, ona:0.38, aprend:"Media",      movil:"Media",   mgr:3.8, hidden:false, avatar:"LS", color:"#8a8577"},
+  {id:"mario", nombre:"Mario C.",  kpi:83, f360:4.3, ona:0.55, aprend:"Media",      movil:"Alta",    mgr:4.2, hidden:false, avatar:"MC", color:"#8a8577"},
+  {id:"diana", nombre:"Diana R.",  kpi:65, f360:4.5, ona:0.71, aprend:"Alta",       movil:"Media",   mgr:2.9, hidden:false, avatar:"DR", color:"#8a8577"},
+  {id:"raul",  nombre:"Raúl O.",   kpi:80, f360:3.7, ona:0.42, aprend:"Baja",       movil:"Baja",    mgr:4.6, hidden:false, avatar:"RO", color:"#8a8577"},
+];
+
+var TALENTS = [
+  {id:"carlos", why:"Tiene la centralidad ONA más alta de todo el equipo (0.92), lo que significa que sus colegas lo buscan constantemente para resolver problemas difíciles. Su velocidad de aprendizaje es sobresaliente. El bajo KPI y el rating bajo del manager sugieren que su tiempo es consumido apoyando a otros, no cerrando ventas propias — una señal clara de talento mal asignado, no de bajo desempeño.",
+   dev:["Reasignar a rol de Líder Técnico o Mentor de Equipo donde la centralidad ONA sea una ventaja formal","Medir su impacto por la mejora en el desempeño del equipo, no por sus ventas individuales","Objetivo 12 meses: preparación para Supervisor de Equipo Comercial","Exposición a proyectos cross-funcionales para ampliar su red de influencia formal"]},
+  {id:"elena", why:"Feedback 360° más alto del área (4.7/5) combinado con alta centralidad ONA (0.76) y alta velocidad de aprendizaje. Su KPI medio (68%) probablemente refleja que dedica tiempo a apoyar a otros — igual que Carlos H. El rating del manager (3.1) no coincide con lo que sus pares reportan. Señal clásica de talento invisible para el manager pero visible para el equipo.",
+   dev:["Plan de mentoría con líder comercial senior para cerrar la brecha de cierre de ventas","Asignación como referente interno de buenas prácticas de atención al cliente","Evaluación trimestral de KPI con revisión del 360° — objetivo: que ambas métricas converjan","Explorar candidatura a roles de coordinación en 9-12 meses"]},
+  {id:"rosa", why:"Feedback 360° de 4.6/5 con KPI del 88% — es la combinación más sólida del área después de Ana P. Sin embargo, su rating de manager (3.2) es desproporcionadamente bajo dado su desempeño real. La alta centralidad ONA (0.79) confirma que el equipo la valora. La discrepancia entre su rating y sus métricas objetivas es una señal de riesgo de sesgo en la evaluación del manager.",
+   dev:["Conversación directa entre manager y RR.HH. para auditar el criterio de rating — ¿qué justifica 3.2 con ese desempeño?","Incluir a Rosa T. en proyectos de alta visibilidad para el siguiente ciclo","Considerar para rol de referente comercial en capacitación de nuevos ingresos","Monitorear la evolución del rating en los próximos 2 trimestres — si no mejora con el mismo manager, evaluar cambio de equipo"]}
+];
+
+// ── TABLA PRINCIPAL ───────────────────────────────
+function onaClass(v){return v>=0.7?'b-ona-high':v>=0.4?'b-ona-med':'b-ona-low';}
+function kpiColor(v){return v>=85?'color:var(--green2)':v>=70?'color:var(--amber)':'color:var(--red2)';}
+function mgrColor(v){return v>=4.5?'color:var(--green2)':v>=3.5?'':'color:var(--red2)';}
+
+function renderTable(){
+  var tb = document.getElementById('main-tbody');
+  tb.innerHTML='';
+  DATA.forEach(function(d){
+    var tr = document.createElement('tr');
+    if(d.hidden) tr.classList.add('hl');
+    tr.innerHTML =
+      '<td><strong>'+(d.hidden?'⭐ ':'')+d.nombre+'</strong></td>'+
+      '<td class="td-mono" style="'+kpiColor(d.kpi)+'">'+d.kpi+'%</td>'+
+      '<td class="td-center td-mono">'+d.f360.toFixed(1)+'/5</td>'+
+      '<td class="td-center"><span class="badge '+onaClass(d.ona)+'">'+d.ona.toFixed(2)+'</span></td>'+
+      '<td class="td-center">'+d.aprend+'</td>'+
+      '<td class="td-center">'+d.movil+'</td>'+
+      '<td class="td-mono" style="'+mgrColor(d.mgr)+'">'+d.mgr.toFixed(1)+'/5</td>'+
+      '<td class="td-center signal">'+(d.hidden?'⭐':'·')+'</td>';
+    tb.appendChild(tr);
+  });
+}
+
+// ── BARRAS ────────────────────────────────────────
+var curVar = 'kpi';
+var VAR_CONFIG = {
+  kpi:    {lbl:'KPI Ventas — % de objetivo',    fn:function(d){return d.kpi;},     max:100, fmt:function(v){return v+'%'},    col:function(v){return v>=85?'var(--green2)':v>=70?'var(--amber2)':'var(--red2)'}},
+  f360:   {lbl:'Feedback 360° — Promedio',       fn:function(d){return d.f360*20;},max:100, fmt:function(v){return (v/20).toFixed(1)+'/5'},col:function(v){return v>=80?'var(--green2)':v>=70?'var(--amber2)':'var(--red2)'}},
+  ona:    {lbl:'Centralidad ONA — Índice 0–1',   fn:function(d){return d.ona*100;},max:100, fmt:function(v){return (v/100).toFixed(2)},    col:function(){return 'var(--blue2)'}},
+  aprend: {lbl:'Velocidad de aprendizaje',        fn:function(d){return {Sobresaliente:100,Alta:75,Media:50,Baja:25}[d.aprend];},max:100,fmt:function(v){return ['Baja','Media','Alta','Sobresaliente'][Math.round(v/25)-1]},col:function(v){return v>=75?'var(--green2)':v>=50?'var(--amber2)':'var(--red2)'}},
+  movil:  {lbl:'Movilidad histórica',             fn:function(d){return {Alta:100,Media:60,Baja:25}[d.movil];},max:100,fmt:function(v){return v>=100?'Alta':v>=60?'Media':'Baja'},col:function(v){return v>=100?'var(--green2)':v>=60?'var(--amber2)':'var(--red2)'}},
+  mgr:    {lbl:'Rating del manager — Promedio',  fn:function(d){return d.mgr*20;}, max:100, fmt:function(v){return (v/20).toFixed(1)+'/5'},col:function(v){return v>=80?'var(--green2)':v>=60?'var(--amber2)':'var(--red2)'}},
+};
+
+function selectVar(key, btn){
+  curVar=key;
+  document.querySelectorAll('.var-btn').forEach(function(b){b.classList.remove('sel');});
+  btn.classList.add('sel');
+  renderBars();
+}
+
+function renderBars(){
+  var cfg = VAR_CONFIG[curVar];
+  document.getElementById('viz-title').textContent = cfg.lbl;
+  var sorted = DATA.slice().sort(function(a,b){return cfg.fn(b)-cfg.fn(a);});
+  var grid = document.getElementById('bar-grid');
+  grid.innerHTML='';
+  sorted.forEach(function(d){
+    var val = cfg.fn(d);
+    var row = document.createElement('div');
+    row.className = 'bar-row'+(d.hidden?' hl':'');
+    row.innerHTML =
+      '<span class="bar-name">'+(d.hidden?'⭐ ':'')+d.nombre+'</span>'+
+      '<div class="bar-track"><div class="bar-fill" style="width:'+val+'%;background:'+cfg.col(val)+'"></div></div>'+
+      '<span class="bar-label" style="'+('font-family:var(--mono);font-size:11px;color:'+cfg.col(val))+'">'+cfg.fmt(val)+'</span>';
+    grid.appendChild(row);
+  });
+}
+
+// ── 9-BOX ─────────────────────────────────────────
+var B9_CELLS = [
+  {des:2,pot:2,name:"Alto Des. · Alto Pot.",     label:"ESTRELLA",        bg:"#0a6542",tc:"#f5d899"},
+  {des:1,pot:2,name:"Medio Des. · Alto Pot.",    label:"POTENCIAL ALTO",  bg:"#1d3465",tc:"#e7b56a"},
+  {des:0,pot:2,name:"Bajo Des. · Alto Pot.",     label:"TALENTO EN RIESGO",bg:"#122349",tc:"#aabbd8"},
+  {des:2,pot:1,name:"Alto Des. · Pot. Medio",    label:"SÓLIDO",          bg:"#0a6542",tc:"#d4f0e4"},
+  {des:1,pot:1,name:"Medio Des. · Pot. Medio",   label:"NÚCLEO",          bg:"#f5f5f5",tc:"#555"},
+  {des:0,pot:1,name:"Bajo Des. · Pot. Medio",    label:"REVISAR",         bg:"var(--amber3)",tc:"var(--amber)"},
+  {des:2,pot:0,name:"Alto Des. · Pot. Bajo",     label:"EXPERTO",         bg:"var(--lgray)",tc:"var(--dgray)"},
+  {des:1,pot:0,name:"Medio Des. · Pot. Bajo",    label:"ESTABLE",         bg:"#f5f5f5",tc:"#aaa"},
+  {des:0,pot:0,name:"Bajo Des. · Pot. Bajo",     label:"CONVERSACIÓN",    bg:"var(--red3)",tc:"var(--red2)"},
+];
+
+// order for display: top row = pot2, middle = pot1, bottom = pot0
+// each row: des0,des1,des2 (left to right)
+var B9_ORDER = [
+  {des:0,pot:2},{des:1,pot:2},{des:2,pot:2},
+  {des:0,pot:1},{des:1,pot:1},{des:2,pot:1},
+  {des:0,pot:0},{des:1,pot:0},{des:2,pot:0},
+];
+
+var placements = {}; // id -> cell key "des-pot"
+var dragId = null;
+
+function cellKey(des,pot){return des+'-'+pot;}
+
+function renderPool(){
+  var pool = document.getElementById('pool');
+  pool.innerHTML='';
+  DATA.forEach(function(d){
+    if(placements[d.id]) return;
+    pool.appendChild(makeChip(d));
+  });
+}
+
+function makeChip(d){
+  var el = document.createElement('div');
+  el.className='person-chip';
+  el.draggable=true;
+  el.id='chip-'+d.id;
+  el.innerHTML='<span class="pc-avatar" style="background:'+d.color+';color:#fff">'+d.avatar+'</span>'+d.nombre;
+  el.addEventListener('dragstart',function(){dragId=d.id;el.classList.add('dragging');});
+  el.addEventListener('dragend',function(){el.classList.remove('dragging');dragId=null;});
+  return el;
+}
+
+function renderB9(){
+  var grid = document.getElementById('b9grid');
+  grid.innerHTML='';
+  B9_ORDER.forEach(function(coord){
+    var cfg = B9_CELLS.find(function(c){return c.des===coord.des&&c.pot===coord.pot;});
+    var key = cellKey(coord.des,coord.pot);
+    var cell = document.createElement('div');
+    cell.className='b9-cell';
+    cell.style.background=cfg.bg;
+    cell.setAttribute('data-key',key);
+    cell.innerHTML=
+      '<p class="b9-rank" style="color:'+cfg.tc+'60">'+cfg.name+'</p>'+
+      '<p class="b9-label" style="color:'+cfg.tc+'">'+cfg.label+'</p>'+
+      '<div class="b9-chips" id="chips-'+key+'"></div>';
+    cell.addEventListener('dragover',function(e){e.preventDefault();cell.classList.add('drop-target');});
+    cell.addEventListener('dragleave',function(){cell.classList.remove('drop-target');});
+    cell.addEventListener('drop',function(e){e.preventDefault();cell.classList.remove('drop-target');onDrop(e,null,key);});
+    grid.appendChild(cell);
+    // render placed chips
+    DATA.forEach(function(d){
+      if(placements[d.id]===key){
+        var c=makeChip(d);
+        c.style.fontSize='10.5px';
+        c.style.padding='.2rem .5rem';
+        c.addEventListener('click',function(){delete placements[d.id];syncChips();});
+        document.getElementById('chips-'+key).appendChild(c);
+      }
+    });
+  });
+}
+
+function onDragOver(e,el){e.preventDefault();if(el)el.classList.add('drag-over');}
+function onDrop(e,target,key){
+  e.preventDefault();
+  document.getElementById('pool').classList.remove('drag-over');
+  if(!dragId)return;
+  if(key){placements[dragId]=key;}
+  else{delete placements[dragId];}
+  dragId=null;
+  syncChips();
+}
+function syncChips(){renderPool();renderB9();}
+
+// ── TALENT CARDS ──────────────────────────────────
+function renderTalentCards(){
+  var container = document.getElementById('talent-cards');
+  container.innerHTML='';
+  TALENTS.forEach(function(t){
+    var d=DATA.find(function(x){return x.id===t.id;});
+    var card=document.createElement('div');
+    card.className='talent-card';
+    card.innerHTML=
+      '<div class="tc-head" style="background:var(--lgray)">'+
+        '<div class="tc-avatar" style="background:'+d.color+';color:#fff">'+d.avatar+'</div>'+
+        '<div>'+
+          '<p class="tc-name">'+d.nombre+'</p>'+
+          '<span class="tc-tag">⭐ Talento oculto</span>'+
+        '</div>'+
+      '</div>'+
+      '<div class="tc-body">'+
+        '<div class="tc-grid" style="margin-top:.85rem">'+
+          '<div class="tc-stat"><p class="tc-stat-label">KPI ventas</p><p class="tc-stat-val" style="color:'+(d.kpi>=85?'var(--green2)':d.kpi>=70?'var(--amber)':'var(--red2)')+'">'+d.kpi+'%</p></div>'+
+          '<div class="tc-stat"><p class="tc-stat-label">Feedback 360°</p><p class="tc-stat-val">'+d.f360.toFixed(1)+'/5</p></div>'+
+          '<div class="tc-stat"><p class="tc-stat-label">Centralidad ONA</p><p class="tc-stat-val" style="color:var(--blue)">'+d.ona.toFixed(2)+'</p></div>'+
+          '<div class="tc-stat"><p class="tc-stat-label">Rating manager</p><p class="tc-stat-val" style="color:'+(d.mgr>=4?'var(--green2)':'var(--red2)')+'">'+d.mgr.toFixed(1)+'/5</p></div>'+
+        '</div>'+
+        '<div class="tc-why"><p class="tc-why-lbl">¿Por qué es talento oculto?</p><p class="tc-why-txt">'+t.why+'</p></div>'+
+        '<div class="tc-dev"><p class="tc-dev-lbl">Ruta de desarrollo recomendada</p>'+
+          t.dev.map(function(item){return '<p class="tc-dev-item">'+item+'</p>';}).join('')+
+        '</div>'+
+      '</div>';
+    container.appendChild(card);
+  });
+}
+
+// ── FASE NAVIGATION ───────────────────────────────
+var curPhase=0;
+var PHASE_NOTES=['Explorar datos','Construir 9-Box','Responder preguntas','Ver solución'];
+
+function goPhase(idx){
+  document.querySelectorAll('.phase-panel').forEach(function(p,i){p.classList.toggle('active',i===idx);});
+  document.querySelectorAll('.phase-btn').forEach(function(b,i){
+    b.classList.remove('active');
+    if(i<idx)b.classList.add('done');
+  });
+  document.querySelectorAll('.phase-btn')[idx].classList.add('active');
+  curPhase=idx;
+  document.getElementById('fb-fill').style.width=((idx+1)/4*100)+'%';
+  document.getElementById('fb-pct').textContent='Fase '+(idx+1)+' de 4 — '+PHASE_NOTES[idx];
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function nextPhase(){if(curPhase<3)goPhase(curPhase+1);}
+function prevPhase(){if(curPhase>0)goPhase(curPhase-1);}
+
+// ── INIT ──────────────────────────────────────────
+renderTable();
+renderBars();
+renderPool();
+renderB9();
+renderTalentCards();
+</script>
+</body>
+</html>
