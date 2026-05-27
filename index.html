@@ -67,16 +67,21 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dgray);line-hei
 /* LOGO URP */
 .hero-title-wrap{
     display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    width:100%;
-    gap:20px;
+    flex-direction:row;
+    align-items:center;
+    justify-content:flex-start;
+
+    gap:40px;
+
+    flex-wrap:nowrap;
 }
 
 .urp-logo{
     width:110px;
     height:auto;
-    object-fit:contain;
+
+    margin-left:auto;
+
     flex-shrink:0;
 }
 /* LOGO URP */
