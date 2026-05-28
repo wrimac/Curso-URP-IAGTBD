@@ -164,7 +164,8 @@ td{padding:.5rem .85rem;vertical-align:middle}
 .bar-row.hl .bar-name{font-weight:600;color:var(--navy)}
 
 /* 9-BOX BUILDER */
-.b9-outer{display:grid;grid-template-columns:28px 1fr;gap:.4rem;margin:1rem 0}
+/* .b9-outer{display:grid;grid-template-columns:28px 1fr;gap:.4rem;margin:1rem 0} */
+.b9-outer{display:grid;grid-template-columns:18px 28px 1fr;gap:.5rem;align-items:start;margin:1rem 0}
 .b9-y-axis{display:flex;flex-direction:column;justify-content:space-between;padding:.3rem 0;font-size:9px;color:var(--black);text-align:right}
 .b9-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
 .b9-cell{border-radius:8px;padding:.65rem .7rem;min-height:90px;cursor:pointer;transition:all .15s;border:2px solid transparent;position:relative; touch-action:none;}
@@ -178,6 +179,7 @@ td{padding:.5rem .85rem;vertical-align:middle}
 .b9-x-labels{padding-left:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:.25rem}
 .b9-x-lbl{font-size:9px;color:var(--black);text-align:center}
 .b9-x-axis{font-size:9.5px;color:var(--black);text-align:center;margin-top:.15rem;padding-left:32px}
+.b9-vertical-title{display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:10px;font-weight:700;color:var(--black);line-height:1.05;padding-top:18px;letter-spacing:1px;}
 
 /* COLABORADORES POOL */
 .pool{display:flex;flex-wrap:wrap;gap:.45rem;padding:.75rem;background:var(--lgray);border-radius:10px;min-height:44px;margin-bottom:.75rem;transition:background .15s}
@@ -339,21 +341,25 @@ td{padding:.5rem .85rem;vertical-align:middle}
   <div class="pool" id="pool" ondragover="onDragOver(event,this)" ondrop="onDrop(event,'pool',null)"></div>
 
   <div class="b9-outer">
+
+    <div class="b9-vertical-title">
+        P<br>
+        O<br>
+        T<br>
+        E<br>
+        N<br>
+        C<br>
+        I<br>
+        A<br>
+        L
+    </div>
+
     <div class="b9-y-axis">
       <span>Alto</span>
       <span>Medio</span>
       <span>Bajo</span>
-
-      <span>P</span>
-      <span>O</span>
-      <span>T</span>
-      <span>E</span>
-      <span>N</span>
-      <span>C</span>
-      <span>I</span>
-      <span>A</span>
-      <span>L</span>
     </div>
+
     <div>
       <div class="b9-grid" id="b9grid"></div>
       <div class="b9-x-labels">
