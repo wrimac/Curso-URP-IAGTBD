@@ -166,7 +166,9 @@ td{padding:.5rem .85rem;vertical-align:middle}
 /* 9-BOX BUILDER */
 /* .b9-outer{display:grid;grid-template-columns:28px 1fr;gap:.4rem;margin:1rem 0} */
 .b9-outer{display:grid;grid-template-columns:18px 28px 1fr;gap:.5rem;align-items:start;margin:1rem 0}
-.b9-y-axis{display:flex;flex-direction:column;justify-content:space-between;padding:.3rem 0;font-size:9px;color:var(--black);text-align:right}
+/* .b9-y-axis{display:flex;flex-direction:column;justify-content:space-between;padding:.3rem 0;font-size:9px;color:var(--black);text-align:right} */
+.b9-y-axis{display:grid;grid-template-rows:repeat(3,1fr);align-items:center;justify-items:center;font-size:11px;font-weight:700;color:var(--black);min-height:290px;}
+.y-axis-label{display:flex;align-items:center;justify-content:center;height:100%;}
 .b9-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
 .b9-cell{border-radius:8px;padding:.65rem .7rem;min-height:90px;cursor:pointer;transition:all .15s;border:2px solid transparent;position:relative; touch-action:none;}
 .b9-cell:hover{filter:brightness(.97)}
@@ -343,21 +345,41 @@ td{padding:.5rem .85rem;vertical-align:middle}
   <div class="b9-outer">
 
     <div class="b9-vertical-title">
+        " "<br>
+        " "<br>
+        " "<br>
+        " "<br>
         P<br>
+        " "<br>
         O<br>
+        " "<br>
         T<br>
+        " "<br>.
         E<br>
+        " "<br>
         N<br>
+        " "<br>
         C<br>
+        " "<br>
         I<br>
+        " "<br>
         A<br>
+        " "<br>
         L
     </div>
 
     <div class="b9-y-axis">
-      <span>Alto</span>
-      <span>Medio</span>
-      <span>Bajo</span>
+      <div class="y-axis-label">
+          <span>ALTO</span>
+      /</div>
+
+      <div class="y-axis-label">
+          <span>MEDIO</span>
+      </div>
+
+      <div class="y-axis-label">
+          <span>BAJO</span>
+      </div>
     </div>
 
     <div>
