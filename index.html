@@ -167,7 +167,7 @@ td{padding:.5rem .85rem;vertical-align:middle}
 .b9-outer{display:grid;grid-template-columns:28px 1fr;gap:.4rem;margin:1rem 0}
 .b9-y-axis{display:flex;flex-direction:column;justify-content:space-between;padding:.3rem 0;font-size:9px;color:var(--black);text-align:right}
 .b9-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
-.b9-cell{border-radius:8px;padding:.65rem .7rem;min-height:90px;cursor:pointer;transition:all .15s;border:2px solid transparent;position:relative}
+.b9-cell{border-radius:8px;padding:.65rem .7rem;min-height:90px;cursor:pointer;transition:all .15s;border:2px solid transparent;position:relative; touch-action:none;}
 .b9-cell:hover{filter:brightness(.97)}
 .b9-cell.drop-target{border-color:var(--gold)!important;box-shadow:0 0 0 3px rgba(200,148,47,.2)}
 .b9-rank{font-size:8.5px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;opacity:.65;margin-bottom:3px}
@@ -183,7 +183,7 @@ td{padding:.5rem .85rem;vertical-align:middle}
 .pool{display:flex;flex-wrap:wrap;gap:.45rem;padding:.75rem;background:var(--lgray);border-radius:10px;min-height:44px;margin-bottom:.75rem;transition:background .15s}
 .pool.drag-over{background:#e8e5de}
 .pool-lbl{font-size:10px;color:var(--mgray);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.5rem;display:block}
-.person-chip{display:flex;align-items:center;gap:.3rem;background:var(--white);border:1.5px solid #d8d5ce;border-radius:7px;padding:.3rem .65rem;font-size:12px;font-weight:500;color:var(--dgray);cursor:grab;user-select:none;transition:all .15s;white-space:nowrap}
+.person-chip{display:flex;align-items:center;touch-action:none;gap:.3rem;background:var(--white);border:1.5px solid #d8d5ce;border-radius:7px;padding:.3rem .65rem;font-size:12px;font-weight:500;color:var(--dgray);cursor:grab;user-select:none;transition:all .15s;white-space:nowrap}
 .person-chip:hover{border-color:var(--gold);background:var(--lgray)}
 .person-chip.dragging{opacity:.45;cursor:grabbing}
 .person-chip.hidden{display:none}
@@ -596,13 +596,57 @@ function renderPool(){
 }
 
 function makeChip(d){
-  var el = document.createElement('div');
+  var el=document.createElement('div');
   el.className='person-chip';
   el.draggable=true;
   el.id='chip-'+d.id;
-  el.innerHTML='<span class="pc-avatar" style="background:'+d.color+';color:#fff">'+d.avatar+'</span>'+d.nombre;
-  el.addEventListener('dragstart',function(){dragId=d.id;el.classList.add('dragging');});
-  el.addEventListener('dragend',function(){el.classList.remove('dragging');dragId=null;});
+  el.dataset.id=d.id;
+  el.innerHTML=
+  '<span class="pc-avatar" style="background:'+d.color+';color:#fff">'+
+  d.avatar+
+  '</span>'+
+  d.nombre;
+
+  // Desktop drag
+  el.addEventListener('dragstart',function(){
+      dragId=d.id;
+      el.classList.add('dragging');
+  });
+
+  el.addEventListener('dragend',function(){
+      el.classList.remove('dragging');
+      dragId=null;
+  });
+
+  // Mobile touch
+  el.addEventListener('touchstart',function(){
+      dragId=d.id;
+      el.classList.add('dragging');
+  });
+
+  el.addEventListener('touchend',function(e){
+      el.classList.remove('dragging');
+      var touch=e.changedTouches[0];
+      var target=document.elementFromPoint(
+          touch.clientX,
+          touch.clientY
+      );
+
+      if(!target){
+          dragId=null;
+          return;
+      }
+
+      var cell=target.closest('.b9-cell');
+
+      if(cell){
+          placements[dragId]=cell.dataset.key;
+      }else{
+          delete placements[dragId];
+      }
+      dragId=null;
+      syncChips();
+  });
   return el;
 }
 
